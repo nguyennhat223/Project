@@ -1,0 +1,88 @@
+﻿@model SV21T1020200.Shop.Models.OrderSearchInput
+@{
+    ViewBag.Title = "Lịch sử đơn hàng";
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <!--Form đầu vào tìm kiếm-->
+        <form id="frmSearchInput" action="~/Cart/HistoryOrder" method="get">
+            <div class="row container-fluid">
+                <!-- Trạng thái đơn hàng -->
+                <div class="col-sm-3">
+                    <select class="form-control" name="@nameof(Model.Status)">
+                        <option value="">--Tất cả--</option>
+                        @{
+                            var statuses = new List<(int Value, string Text)>
+                        {
+                        (1, "Đơn hàng mới (chờ duyệt)"),
+                        (2, "Đơn hàng đã được duyệt"),
+                        (3, "Đơn hàng đang được giao"),
+                        (4, "Đơn hàng đã mua hoàn tất"),
+                        (-1, "Đơn hàng bị hủy"),
+                        (-2, "Đơn hàng bị từ chối")
+                        };
+                            foreach (var status in statuses)
+                            {
+                                if (status.Value == Model.Status)
+                                {
+                                    <option value="@status.Value" selected>@status.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@status.Value">@status.Text</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+
+                <!-- Khoảng thời gian -->
+                <div class="col-sm-3">
+                    <input type="text" name="@nameof(Model.TimeRange)" value="@Model.TimeRange" class="form-control daterange-picker" placeholder="Chọn khoảng thời gian" />
+                </div>
+
+                <!-- Nút tìm kiếm -->
+                <div class="col-sm-3">
+                    <button type="submit" id="search-btn" class="btn btn-info btn-block">
+                        <i class="fa fa-search"></i> Tìm kiếm
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Kết quả tìm kiếm -->
+        <div id="searchResult" class="mt-3">
+            <!-- Kết quả sẽ được hiển thị ở đây -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function doSearch(page) {
+            var searchCondition = $("#frmSearchInput").serializeArray();
+            searchCondition.push({ name: "page", value: page });
+
+            var action = $("#frmSearchInput").prop("action");
+            var method = $("#frmSearchInput").prop("method");
+
+            $.ajax({
+                url: action,
+                type: method,
+                data: searchCondition,
+                success: function (data) {
+                    $("#searchResult").html(data);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            doSearch(@Model.Page);
+            $("#frmSearchInput").submit(function (e) {
+                e.preventDefault();
+                doSearch(1);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,174 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Đăng Nhập</title>
+
+    <!-- Kết nối với Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ02VbK8i2wDWdYbb4DF6V10Xbd7pvvB0zOqe90bbrLxlz33oxS0dbvWgXk" crossorigin="anonymous">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 25px;
+            box-shadow: none;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+            .form-control:focus {
+                border-color: #4facfe;
+                box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+            }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            background-color: #4facfe;
+            border: none;
+            font-size: 1.1rem;
+        }
+
+            .btn-primary:hover {
+                background-color: #2f8bcf;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+        .btn-link {
+            font-size: 1rem;
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #4facfe;
+            transition: all 0.3s ease;
+        }
+
+            .btn-link:hover {
+                background-color: #4facfe;
+                color: white;
+                text-decoration: none;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+        .text-center a {
+            color: #4facfe;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+            .text-center a:hover {
+                text-decoration: underline;
+            }
+
+        .btn-link {
+            font-size: 1rem;
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 25px;
+            border: 2px solid #4facfe;
+            transition: all 0.3s ease;
+        }
+
+            .btn-link:hover {
+                background-color: #4facfe;
+                color: white;
+                text-decoration: none;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Card đăng nhập -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Đăng Nhập</h5>
+
+            <!-- Form đăng nhập -->
+            <form action="~/Account/Login" method="post">
+                <!-- Tên đăng nhập -->
+                @Html.AntiForgeryToken()
+                <div class="form-group" style="display: flex; flex-direction: column;">
+                    <label for="username" class="form-label" style="margin-bottom:10px;">Tên Đăng Nhập:</label>
+                    <input type="text" class="form-control" autofocus
+                           placeholder="Tên đăng nhập"
+                           name="username" value="@ViewBag.UserName">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <!-- Mật khẩu -->
+                <div class="form-group" style="display: flex; flex-direction: column;">
+                    <label for="password" class="form-label" style="margin-bottom:10px;">Mật Khẩu:</label>
+                    <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group" style="margin-bottom:10px; font-size:1rem;">
+                    @Html.ValidationMessage("Error", new { @style = "color:#f00" })
+                </div>
+                <!-- Nút Đăng Nhập -->
+                <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+            </form>
+
+            <div class="text-center mt-3" style="padding: 12px; text-align:center;">
+                <a href="~/Account/Register" class="btn btn-link">Đăng ký tài khoản</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-white text-dark py-4" style="position: absolute;
+    bottom: 0; text-align: center;">
+        <div class="container text-center">
+            <p>&copy; 2024 Shop Bán Hàng. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Kết nối với Bootstrap JS và Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0tb9pLqkI3s9n9l+2+Dyh3SyfXg04U9du+kX5gD4c0mOeDln" crossorigin="anonymous"></script>
+
+</body>
+</html>

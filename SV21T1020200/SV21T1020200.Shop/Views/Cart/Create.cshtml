@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Lập đơn hàng";
+}
+
+<div class="box box-primary" style="margin: 0 auto; width: 80%; display: flex; justify-content: center; height: 100vh;">
+    <div class="box-body" style="width: 100%; max-width: 1000px;">
+            <!-- Giỏ hàng -->
+            <div id="shoppingCart" class="table-responsive">
+            </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            showShoppingCart();
+        });
+        function showShoppingCart() {
+            $.ajax({
+                url: "ShoppingCart",
+                type: 'GET',
+                success: function (data) {
+                    $('#shoppingCart').html(data);
+                }
+            });
+        }
+    </script>
+}

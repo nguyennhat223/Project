@@ -1,0 +1,148 @@
+﻿@model SV21T1020200.DomainModels.Product
+@{
+}
+<div class="container my-5">
+    <form id="frmAddToCart"
+          action="~/Cart/AddToCart"
+          method="post"
+          style="background-color:#fff; border:1px solid #ccc; margin:5px 0px 5px 0px; padding:20px; border-radius: 8px;"
+          class="form-horizontal">
+        <input type="hidden" name="ProductID" value="@Model.ProductID" />
+        <input type="hidden" name="ProductName" value="@Model.ProductName" />
+        <input type="hidden" name="Photo" value="@Model.Photo" />
+        <input type="hidden" name="Unit" value="@Model.Unit" />
+        <div class="row">
+            <!-- Hình ảnh sản phẩm -->
+            <div class="col-md-6 mb-3">
+                <img src="~/images/products/@Model.Photo" alt="Sản phẩm" class="img-fluid shadow rounded">
+            </div>
+            <!-- Thông tin sản phẩm -->
+            <div class="col-md-6">
+                <h2 class="text-primary">@Model.ProductName</h2>
+                <p class="text-muted">Mã sản phẩm: @Model.ProductID</p>
+                <p class="fs-4 text-danger">@Model.Price.ToString("N0") VND</p>
+                <p>@Model.ProductDescription</p>
+                <p>Số lượng đã bán: <span class="text-success">@SV21T1020200.BussinessLayers.ProductDataService.Sold(Model.ProductID)</span></p>
+
+                <div class="form-group mb-3">
+                    <label for="Quantity">Số lượng:</label>
+                    <input class="form-control number-separator" type="number" value="1" min="1" name="Quantity" id="Quantity" />
+                    <input type="hidden" name="SalePrice" value="@Model.Price" />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-primary btn-lg" type="submit">Thêm vào giỏ hàng</button>
+                    <span id="message" style="color: red;"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Đánh giá sản phẩm -->
+    <div class="mt-5">
+        <h3 class="text-center mb-3">Đánh giá sản phẩm</h3>
+        <div class="d-flex justify-content-center mb-3">
+            <div class="star-rating me-2">
+                <span class="badge bg-warning text-dark">★★★★☆</span>
+            </div>
+            <span class="ms-2">4.5/5 (50 đánh giá)</span>
+        </div>
+        <div class="border p-3 mb-3 rounded shadow-sm">
+            <p><strong>Người dùng 1</strong></p>
+            <p>Rất đẹp và chất lượng tốt, tôi rất hài lòng!</p>
+        </div>
+        <div class="border p-3 rounded shadow-sm">
+            <p><strong>Người dùng 2</strong></p>
+            <p>Chất liệu sản phẩm tuyệt vời, đáng mua!</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a class="btn btn-primary btn-lg" href="~/Product/Index">Xem thêm sản phẩm khác...</a>
+    </div>
+</div>
+@section scripts {
+<script>
+    $(document).ready(function () {
+        $('#frmAddToCart').submit(function (e) {
+            e.preventDefault();
+            var url = $(this).prop("action");
+            var method = $(this).prop("method");
+            var postData = $(this).serializeArray();
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: postData,
+                error: function () {
+                    alert("Yêu cầu của bạn không hợp lệ!");
+                },
+                success: function (data) {
+                    if (data !== "") {
+                        $("#message").html(data);
+                    } else {
+                        // Hiển thị alert khi sản phẩm được thêm vào giỏ hàng thành công
+                        alert("Sản phẩm đã được thêm vào giỏ hàng!");
+                        location.reload();  // Tự động tải lại trang để cập nhật giỏ hàng
+                    }
+                }
+            });
+            return;
+        });
+    });
+</script>
+}
+
+
+<style>
+    /* Cải thiện giao diện trang sản phẩm */
+    .container {
+        max-width: 1200px;
+        margin-top: 30px;
+    }
+
+    .img-fluid {
+        border-radius: 8px;
+    }
+
+    .star-rating {
+        font-size: 1.2rem;
+    }
+
+    .text-primary {
+        color: #0D6EFD !important;
+    }
+
+    .btn-lg {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        border-radius: 30px;
+    }
+
+    .btn-primary {
+        background-color: #0D6EFD;
+        border-color: #0D6EFD;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .form-group input {
+        border-radius: 8px;
+    }
+
+    .border {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mb-3 {
+        margin-bottom: 20px;
+    }
+</style>

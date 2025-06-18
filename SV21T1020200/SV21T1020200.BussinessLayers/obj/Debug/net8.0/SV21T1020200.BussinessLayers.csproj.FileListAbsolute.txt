@@ -1,0 +1,17 @@
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.BussinessLayers.deps.json
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.BussinessLayers.dll
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.BussinessLayers.pdb
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.DataLayers.dll
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.DomainModels.dll
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.DataLayers.pdb
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\bin\Debug\net8.0\SV21T1020200.DomainModels.pdb
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.csproj.AssemblyReference.cache
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.AssemblyInfoInputs.cache
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.AssemblyInfo.cs
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.csproj.CoreCompileInputs.cache
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T102.F9B06645.Up2Date
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.dll
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\refint\SV21T1020200.BussinessLayers.dll
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\SV21T1020200.BussinessLayers.pdb
+C:\Users\Nhat\source\repos\SV21T1020200\SV21T1020200.BussinessLayers\obj\Debug\net8.0\ref\SV21T1020200.BussinessLayers.dll

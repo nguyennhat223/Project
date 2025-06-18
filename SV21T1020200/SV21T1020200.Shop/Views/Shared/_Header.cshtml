@@ -1,0 +1,141 @@
+﻿<style>
+    /* Cải thiện hiệu ứng hover cho các liên kết trong menu điều hướng */
+    .navbar-nav .nav-link {
+        color: white;
+        transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffb600; /* Màu vàng khi hover */
+            background-color: rgba(0, 0, 0, 0.1); /* Màu nền mờ khi hover */
+            border-radius: 5px;
+        }
+
+    /* Cải thiện hiệu ứng hover cho các nút "Đăng nhập" và "Đăng ký" */
+    .navbar-custom-menu .btn {
+        color: #fff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        padding: 8px 15px;
+        border-radius: 30px;
+    }
+
+        .navbar-custom-menu .btn:hover {
+            background-color: #ffb600; /* Màu vàng khi hover */
+            color: #fff; /* Giữ màu chữ trắng khi hover */
+        }
+
+    /* Cải thiện hover cho icon giỏ hàng */
+    .navbar-custom-menu .bi-cart3 {
+        font-size: 20px;
+        transition: color 0.3s ease;
+    }
+
+        .navbar-custom-menu .bi-cart3:hover {
+            color: #ffb600; /* Màu vàng khi hover */
+        }
+
+    /* Cải thiện hiệu ứng hover cho menu dropdown */
+    .user-menu .dropdown-toggle {
+        color: white;
+        transition: color 0.3s ease;
+    }
+
+        .user-menu .dropdown-toggle:hover {
+            color: #ffb600; /* Màu vàng khi hover */
+        }
+
+    /* Dropdown menu: Khi hover vào mục trong dropdown */
+    .dropdown-menu li a:hover {
+        background-color: #ffb600; /* Màu nền vàng khi hover */
+        color: white; /* Chữ màu trắng khi hover */
+    }
+
+    /* Cải thiện style cho header khi hover vào menu */
+    header {
+        transition: background-color 0.3s ease;
+    }
+
+        header:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* Làm nền header tối hơn khi hover */
+        }
+
+
+</style>
+<header class="bg-primary text-white sticky-top">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center py-2">
+            <!-- Logo -->
+            <div>
+                <a href="~/Home/Index" class="text-white text-decoration-none fs-4 fw-bold">Nhật Shop</a>
+            </div>
+
+            <!-- Navigation Bar -->
+            <nav class="navbar navbar-expand-lg navbar-dark p-0" style="margin-bottom:0px;">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="~/Home/Index">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Product/Index">Sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Cart/Index">Lịch sử mua hàng</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Cart and User Info -->
+            <div class="d-flex flex-row align-items-center">
+                <!-- User Info -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav d-flex flex-row align-items-center m-0">
+                        @{
+                            var userData = User.GetUserData();
+                            if (userData != null)
+                            {
+                                <!-- Cart Icon -->
+                                <li class="nav-item me-3">
+                                <a href="~/Cart/Create" class="text-white text-decoration-none position-relative me-3">
+                                    <i class="bi bi-cart3"></i>
+                                </a>
+                                </li>
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;">
+                                        Welcome to @userData.DisplayName
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- User image -->
+                                        <li class="user-header" style="color:black;">
+                                            <p style ="color:black;">
+                                                @userData.DisplayName
+                                                <small>@userData.UserName</small>
+                                            </p>
+                                            <div class="pull-center">
+                                                <a href="~/Account/ChangeInformation/@userData.UserId" class="btn btn-default btn-flat" style="color: black;">Thay đổi thông tin</a>
+                                            </div>
+                                        </li>
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <a href="~/Account/ChangePassword" class="btn btn-default btn-flat" style="color: black;">Đổi mật khẩu</a>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a href="~/Account/Logout" class="btn btn-default btn-flat" style="color: black;">Thoát</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <a style="margin-right:10px; color: black;" href="~/Account/Login" class="btn btn-default btn-sm">Đăng nhập</a>
+                                <a href="~/Account/Register" class="btn btn-default btn-sm" style="color: black;">Đăng ký</a>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

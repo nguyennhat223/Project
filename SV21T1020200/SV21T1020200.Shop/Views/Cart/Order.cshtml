@@ -1,0 +1,147 @@
+﻿@model SV21T1020200.Shop.Models.CustomerInput
+@{
+    ViewBag.Title = "Lập đơn hàng";
+    int stt = 0;
+    decimal sumOfPrice = 0;
+}
+
+<div class="container mt-5">
+    <div class="box box-primary" style="margin: 0 auto; max-width: 1000px;">
+        <div class="box-body">
+            <!-- Thông tin giỏ hàng -->
+            <div class="col-md-12">
+                <h4 class="text-center mb-4" style="font-weight: bold; color: #333;">Xác nhận đặt hàng</h4>
+
+                <div id="shoppingCart" class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th class="text-center">Tên hàng</th>
+                                <th class="text-center">ĐVT</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-center">Giá</th>
+                                <th class="text-center">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.cartItems.Count() > 0)
+                            {
+                                @foreach (var item in Model.cartItems)
+                                {
+                                    sumOfPrice += item.TotalPrice;
+                                    <tr>
+                                        <td class="text-center">@(++stt)</td>
+                                        <td>@item.ProductName</td>
+                                        <td class="text-center">@item.Unit</td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-right">@item.SalePrice.ToString("N0")</td>
+                                        <td class="text-right">@item.TotalPrice.ToString("N0")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <p class="text-muted">Giỏ hàng trống</p>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Thông tin thanh toán và đơn hàng -->
+                <div class="mt-4">
+                    <form id="frmOrderInit" action="~/Cart/Init" method="post" class="form-horizontal">
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3" style="font-weight: bold;">Tên khách hàng:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="@Model.customer.CustomerName" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3" style="font-weight: bold;">Tên giao dịch của khách hàng:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="@Model.customer.ContactName" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3" style="font-weight: bold;">Email:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="@Model.customer.Email" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3" style="font-weight: bold;">Số điện thoại:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="@Model.customer.Phone" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3" style="font-weight: bold;">Tỉnh/thành:</label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" name="deliveryProvince">
+                                    <option value="0">-- Chọn tỉnh/thành --</option>
+                                    @foreach (var province in SV21T1020200.BussinessLayers.CommonDataService.ListOfProvinces())
+                                    {
+                                        if (province.ProvinceName == Model.customer.Province)
+                                        {
+                                            <option selected value="@province.ProvinceName">@province.ProvinceName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@province.ProvinceName">@province.ProvinceName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-sm-3" style="font-weight: bold;">Địa chỉ nhận hàng:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="deliveryAddress" value="@Model.customer.Address" placeholder="Nhập địa chỉ nhận hàng" />
+                            </div>
+                        </div>
+
+                        <!-- Hiển thị tổng tiền -->
+                        <div class="form-group row">
+                            <div class="col-md-12 text-right" style="font-size: 18px; font-weight: bold; color: #28a745;">
+                                <p class="text-right">Tổng tiền: @sumOfPrice.ToString("N0")</p>
+                                <button type="submit" class="btn btn-success btn-lg" style="font-size: 18px; padding: 12px 30px;">
+                                    <i class="fa fa-credit-card"></i> Thanh toán
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#frmOrderInit").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).prop("action"),
+                    type: $(this).prop("method"),
+                    data: $(this).serializeArray(),
+
+                    success: function (result) {
+                        if (isNaN(result)) {
+                            $("#error-message").html(result);
+                        }
+                        else {
+                            window.location.href = "Index/" + result;
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+}

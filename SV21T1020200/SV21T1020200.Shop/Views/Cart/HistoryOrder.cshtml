@@ -1,0 +1,144 @@
+﻿@model SV21T1020200.Shop.Models.OrderSearchResult
+@{
+    Layout = null;
+}
+<p style="margin:10px 0 10px 0">
+    Có <strong>@Model.RowCount</strong> đơn hàng trong tổng số <strong>@Model.PageCount</strong> trang
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th>Ngày đặt</th>
+                <th>Thời điểm duyệt</th>
+                <th>Địa điểm giao hàng</th>
+                <th>Đơn vị giao hàng</th>
+                <th>Ngày giao hàng</th>
+                <th>Thời gian nhận hàng</th>
+                <th>Trạng thái</th>
+                <th style="width: 60px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Data)
+            {
+                if(item.CustomerID == int.Parse(User.GetUserData().UserId))
+                {
+                    <tr>
+                        <td>@item.OrderTime.ToString("dd/MM/yyyy HH:mm", new System.Globalization.CultureInfo("en-GB"))</td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("en-GB"), "{0:dd/MM/yyyy HH:mm}", @item.AcceptTime)</td>
+                        <td>@item.DeliveryAddress/@item.DeliveryProvince</td>
+                        <td>@item.ShipperName</td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("en-GB"), "{0:dd/MM/yyyy HH:mm}", @item.ShippedTime)</td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("en-GB"), "{0:dd/MM/yyyy HH:mm}", @item.FinishedTime)</td>
+                        @if(item.Status== SV21T1020200.DomainModels.Constants.ORDER_SHIPPING)
+                        {
+                            <td>Đang vận chuyển</td>
+                        }
+                        @if(item.Status == SV21T1020200.DomainModels.Constants.ORDER_INIT)
+                        {
+                            <td><button class="btn btn-danger ajax-link"><a style="color:white;" href="~/Cart/Cancel/@item.OrderID" onclick="return confirm('Xác nhận hủy đơn hàng này?')">Hủy đơn hàng</a></button></td>
+                        }
+                        @if(item.Status == SV21T1020200.DomainModels.Constants.ORDER_ACCEPTED)
+                        {
+                            <td>Đang chờ duyệt</td>
+                        }
+                        @if(item.Status == SV21T1020200.DomainModels.Constants.ORDER_FINISHED)
+                        {
+                            <td>Đã mua</td>
+                        }
+                        @if(item.Status == SV21T1020200.DomainModels.Constants.ORDER_CANCEL)
+                        {
+                            <td>Đơn đã hủy</td>
+                        }
+                        @if(item.Status == SV21T1020200.DomainModels.Constants.ORDER_REJECTED)
+                        {
+                            <td>Đã từ chối</td>
+                        }
+                        <td>
+                        <a href="~/Cart/Details/@item.OrderID" class="btn btn-info btn-xs">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                        </a>
+                    </td>
+                    </tr>
+                }         
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    <ul class="pagination justify-content-center">
+        @for (int p = 1; p <= Model.PageCount; p++)
+        {
+            if (p == Model.Page)
+            {
+                <li class="page-item active">
+                    <a href="#" class="page-link">@p</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a href="javascript:;" class="page-link" onclick="doSearch(@p); goToPage(@p)">@p</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+<style>
+    /* Định dạng Pagination */
+    .pagination {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+        /* Định dạng các trang, khi hover vào */
+        .pagination .page-link {
+            border-radius: 50%;
+            font-size: 16px;
+            padding: 8px 16px;
+            color: #007bff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .pagination .page-link:hover {
+                background-color: #007bff;
+                color: #fff;
+                cursor: pointer;
+            }
+
+        /* Định dạng trang hiện tại */
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+
+        /* Thêm khoảng cách giữa các trang */
+        .pagination .page-item {
+            margin: 0 5px;
+        }
+
+</style>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".ajax-link").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).prop("href"),
+                    type: "GET",
+                    success: function (data) {
+                        if (data !== "") {
+                            alert(data);
+                        }
+                        else {
+                            showShoppingCart();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

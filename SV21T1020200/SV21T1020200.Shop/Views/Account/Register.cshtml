@@ -1,0 +1,179 @@
+﻿@model SV21T1020200.DomainModels.Customer
+@{
+    ViewData["Title"] = "Đăng ký khách hàng";
+}
+<!-- Form Container -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Form Card -->
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Đăng ký tài khoản khách hàng</h3>
+                    <form action="~/Account/SaveRegister" method="post">
+                        <input type="hidden" name="@nameof(Model.CustomerID)" value="@Model.CustomerID" />
+
+                        <!-- Customer Name -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.CustomerName)" class="form-label">Tên khách hàng</label>
+                            <input type="text" class="form-control" name="@nameof(Model.CustomerName)" value="@Model.CustomerName" id="@nameof(Model.CustomerName)" placeholder="Nhập tên khách hàng">
+                            @Html.ValidationMessage(nameof(Model.CustomerName))
+                        </div>
+
+                        <!-- Contact Name -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.ContactName)" class="form-label">Tên giao dịch</label>
+                            <input type="text" class="form-control" name="@nameof(Model.ContactName)" value="@Model.ContactName" id="@nameof(Model.ContactName)" placeholder="Nhập tên giao dịch">
+                            @Html.ValidationMessage(nameof(Model.ContactName))
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.Phone)" class="form-label">Điện thoại</label>
+                            <input type="text" class="form-control" name="@nameof(Model.Phone)" value="@Model.Phone" id="@nameof(Model.Phone)" placeholder="Nhập số điện thoại">
+                            @Html.ValidationMessage(nameof(Model.Phone))
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.Email)" class="form-label">Email</label>
+                            <input type="text" class="form-control" name="@nameof(Model.Email)" value="@Model.Email" id="@nameof(Model.Email)" placeholder="Nhập địa chỉ email">
+                            @Html.ValidationMessage(nameof(Model.Email))
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.Password)" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" name="@nameof(Model.Password)" value="@Model.Password" id="@nameof(Model.Password)" placeholder="Nhập mật khẩu">
+                            @Html.ValidationMessage(nameof(Model.Password))
+                        </div>
+
+                        <!-- Address -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.Address)" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" name="@nameof(Model.Address)" value="@Model.Address" id="@nameof(Model.Address)" placeholder="Nhập địa chỉ">
+                            @Html.ValidationMessage(nameof(Model.Address))
+                        </div>
+
+                        <!-- Province -->
+                        <div class="form-group mb-3">
+                            <label for="@nameof(Model.Province)" class="form-label">Tỉnh/thành</label>
+                            <select class="form-select" name="@nameof(Model.Province)" id="@nameof(Model.Province)">
+                                <option value="">--Chọn Tỉnh/Thành</option>
+                                @foreach (var province in SV21T1020200.BussinessLayers.CommonDataService.ListOfProvinces())
+                                {
+                                    if (province.ProvinceName == Model.Province)
+                                    {
+                                        <option selected value="@province.ProvinceName">@province.ProvinceName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@province.ProvinceName">@province.ProvinceName</option>
+                                    }
+                                }
+                            </select>
+                            @Html.ValidationMessage(nameof(Model.Province))
+                        </div>
+
+                        <!-- Locked Checkbox -->
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" name="@nameof(Model.IsLocked)" value="true" id="IsLocked" @(Model.IsLocked ? "checked" : "") />
+                            <label class="form-check-label" for="IsLocked">Tài khoản đang bị khóa</label>
+                        </div>
+
+                        <!-- Error Message -->
+                        @Html.ValidationMessage("Error")
+
+                        <!-- Buttons -->
+                        <div class="form-group text-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-floppy-o"></i> Lưu dữ liệu
+                            </button>
+                            <a href="~/Home" class="btn btn-secondary ms-2">Quay lại</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap and FontAwesome -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Custom Styles -->
+<style>
+    /* Card Styling */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    /* Form Group Styling */
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #333;
+        font-size: 2rem; /* Increased font size */
+    }
+
+    .form-select {
+        border-radius: 8px;
+        padding: 14px;
+        font-size: 1.3rem; /* Increased font size */
+        box-shadow: none;
+    }
+
+        .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 14px;
+        font-size: 1.3rem; /* Increased font size */
+        box-shadow: none;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .btn {
+        border-radius: 25px;
+        padding: 14px 20px;
+        font-size: 1.3rem; /* Increased font size */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #4e555b;
+        }
+
+    .text-danger {
+        font-size: 1.3rem; /* Increased font size for error messages */
+    }
+
+</style>

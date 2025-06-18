@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nhat\\source\\repos\\SV21T1020200\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D9FBF0-AF90-4048-B9C2-9CA7E3210557}|SV21T1020200.Shop\\SV21T1020200.Shop.csproj|c:\\users\\nhat\\source\\repos\\sv21t1020200\\sv21t1020200.shop\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D9FBF0-AF90-4048-B9C2-9CA7E3210557}|SV21T1020200.Shop\\SV21T1020200.Shop.csproj|solutionrelative:sv21t1020200.shop\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{f5cd1b51-c771-5648-966f-646d419b1e7c}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\Nhat\\source\\repos\\SV21T1020200\\SV21T1020200.Shop\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "SV21T1020200.Shop\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\Nhat\\source\\repos\\SV21T1020200\\SV21T1020200.Shop\\Controllers\\CartController.cs",
+              "RelativeToolTip": "SV21T1020200.Shop\\Controllers\\CartController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAwFUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T16:27:48.302Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

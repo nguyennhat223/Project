@@ -1,0 +1,70 @@
+﻿@model SV21T1020200.Web.Models.ProductSearchResult
+@{
+    Layout = null;
+}
+<p style="margin:10px 0 10px 0">
+    Có <strong>@Model.RowCount</strong> mặt hàng trong tổng số <strong>@Model.PageCount</strong> trang
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr class="bg-primary">
+                <th style="width:80px">Ảnh</th>
+                <th>Tên mặt hàng</th>
+                <th>Đơn vị tính</th>
+                <th>Giá</th>
+                <th style="width:80px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Data)
+            {
+                <tr>
+                    @if(i.Photo =="")
+                    {
+                        <td>
+                            <img src="~/images/nophoto.jpg" style="width:100%" alt="Ảnh sản phẩm" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <img src="~/images/products/@i.Photo" style="width:100%" alt="Ảnh sản phẩm" />
+                        </td>
+                    }
+                    <td>
+                        @i.ProductName
+                    </td>
+                    <td>@i.Unit</td>
+                    <td>
+                        @i.Price.ToString("N0")
+                    </td>
+                    <td class="text-right">
+                        <a href="~/Product/Edit/@i.ProductID" class="btn btn-xs btn-info">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="~/Product/Delete/@i.ProductID" class="btn btn-xs btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    <ul class="pagination">
+        @for (int p = 1; p <= Model.PageCount; p++)
+        {
+            if (p == Model.Page)
+            {
+                <li class="active"><a href="#">@p</a></li>
+            }
+            else
+            {
+                <li><a href="javascript:;" onclick="doSearch(@p)">@p</a></li>
+            }
+        }
+    </ul>
+</div>

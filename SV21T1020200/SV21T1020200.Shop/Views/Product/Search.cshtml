@@ -1,0 +1,161 @@
+﻿@model SV21T1020200.Shop.Models.ProductSearchResult
+@{
+    Layout = null;
+}
+<p style="margin:10px 0 10px 0; font-size: 1.2rem; color: #333;">
+    Có <strong>@Model.RowCount</strong> mặt hàng trong tổng số <strong>@Model.PageCount</strong> trang
+</p>
+
+<div class="product-container">
+    @foreach (var i in Model.Data)
+    {
+        <a href="~/Product/Details/@i.ProductID" class="product-card">
+            <div class="card">
+                <img src="~/images/products/@i.Photo" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">@i.ProductName</h5>
+                    <p class="card-text">@i.ProductDescription</p>
+                    <div class="product-footer d-flex justify-content-between">
+                        <span class="price">@i.Price.ToString("N0") VND</span>
+                        <span class="sold-count">Đã bán: @SV21T1020200.BussinessLayers.ProductDataService.Sold(i.ProductID)</span>
+                    </div>
+                </div>
+            </div>
+        </a>  
+    }
+</div>
+
+<div class="text-center">
+    <ul class="pagination justify-content-center">
+        @for (int p = 1; p <= Model.PageCount; p++)
+        {
+            if (p == Model.Page)
+            {
+                <li class="page-item active">
+                    <a href="#" class="page-link">@p</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a href="javascript:;" class="page-link" onclick="doSearch(@p); goToPage(@p)">@p</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+<style>
+    .product-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive columns */
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .product-card {
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        transition: color 0.3s ease;
+    }
+
+    .card-text {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .product-footer {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #e74c3c;
+    }
+
+    .sold-count {
+        color: #777;
+    }
+
+    /* Hover effects */
+    .card:hover {
+        transform: translateY(-10px); /* Lift the card when hovered */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img-top:hover {
+        transform: scale(1.1); /* Zoom image on hover */
+    }
+
+    /* Pagination styling */
+    .pagination {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .pagination .page-link {
+        border-radius: 50%;
+        font-size: 18px;
+        padding: 10px 16px;
+        color: #007bff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .pagination .page-item {
+        margin: 0 8px;
+    }
+
+</style>
+
+<script>
+    function goToPage(pageNumber) {
+        // Tải lại hoặc thay đổi nội dung trang ở đây nếu cần
+        console.log('Đang chuyển sang trang', pageNumber);
+
+        // Cuộn trang lên đầu khi chuyển trang
+        window.scrollTo(0, 0);
+    }
+</script>
